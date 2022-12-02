@@ -1,4 +1,4 @@
-const postApi = async (url: valuePostUrl, request) => {
+const postApi = async (url, request) => {
   try {
     const response = await fetch(url, {
       method: 'POST',
