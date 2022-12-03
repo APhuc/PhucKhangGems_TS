@@ -10,7 +10,7 @@ import { AppText } from '@components'
 import ImageItem from './image_item'
 import { strApp, scale } from '@constants'
 
-export default function ItemProductCard({ product } : { product: typeGetProduct }) {
+export default function ItemProductCard({ product }: { product: typeGetProduct }) {
   const tw = useTailwind()
 
   const theme = useAppSelector((state) => state.theme.value)
@@ -18,7 +18,7 @@ export default function ItemProductCard({ product } : { product: typeGetProduct 
   const monneyStyle = [tw('text-lg'), { color: theme.COLOR_TEXT_MONNEY }]
 
   return (
-    <View style={tw('w-full p-3')}>
+    <View style={tw('w-full px-2 py-3')}>
       <Pressable style={{
         backgroundColor: theme.BG_SEARCH_PRODUCT,
         shadowColor: theme.COLOR_SHADOW,
@@ -28,26 +28,28 @@ export default function ItemProductCard({ product } : { product: typeGetProduct 
         },
         shadowOpacity: 0.27,
         shadowRadius: 4.65,
-        elevation: 6
+        elevation: 6,
+        borderRadius: 10,
+        overflow: "hidden"
       }}>
         <ImageItem url={product.URLImage} />
-      
+
         <View style={tw('px-1')}>
-          <AppText 
-            style={tw('text-sm mt-2')} 
+          <AppText
+            style={tw('text-sm mt-2')}
             weight={8}>
             {product.TenSanPham}
           </AppText>
 
-          <View style={{alignItems: 'flex-end'}}>
-            {product.GiamGia > 0 && 
+          <View style={{ alignItems: 'flex-end' }}>
+            {product.GiamGia > 0 &&
               <MonneyText
-                styleText={[tw('text-sm line-through'), { color: theme.COLOR_TEXT_MONNEY_THROUGH }]}
+                styleText={[tw('text-sm line-through'), { color: theme.COLOR_TEXT_MONNEY_THROUGH}]}
                 decorationLine='line-through'
                 monney={product.GiaBan} />
             }
 
-            {product.GiaSauGiam > 0 ? 
+            {product.GiaSauGiam > 0 ?
               <MonneyText
                 styleText={monneyStyle}
                 decorationLine='underline'
@@ -58,20 +60,20 @@ export default function ItemProductCard({ product } : { product: typeGetProduct 
               >{strApp.str_a_quote}
               </AppText>
             }
-          
+
             <View style={tw('py-1 flex-row')}>
               <Pressable style={tw('mr-3')}>
-                <AntDesign 
-                  name='hearto' 
-                  size={scale(24)}
+                <AntDesign
+                  name='hearto'
+                  size={scale(20)}
                   color='black'
                 />
               </Pressable>
 
               <Pressable>
-                <FontAwesome5 
+                <FontAwesome5
                   name='cart-plus'
-                  size={scale(24)}
+                  size={scale(20)}
                   color='black'
                 />
               </Pressable>
@@ -83,20 +85,15 @@ export default function ItemProductCard({ product } : { product: typeGetProduct 
   )
 }
 
-const MonneyText = (
-  { styleText, decorationLine, monney } : { 
-    styleText: StyleProp<TextStyle>,
-    decorationLine: String,
-    monney: number }
-) => {
+const MonneyText = ({ styleText, decorationLine, monney }: { styleText: StyleProp<TextStyle>, decorationLine: String, monney: number}) => {
   const tw = useTailwind()
 
   return (
-    <AppText 
-      style={styleText} 
+    <AppText
+      style={styleText}
       weight={8} >
       {formatNumber(monney)}{' '}
-      <AppText 
+      <AppText
         style={tw(`${decorationLine}`)}
         weight={8}
       >đ</AppText>

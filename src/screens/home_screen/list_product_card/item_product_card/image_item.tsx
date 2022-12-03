@@ -12,30 +12,37 @@ export default function ImageItem({ url }: { url: String | undefined }) {
   useLayoutEffect(() => {
     if (url) {
       Image.getSize(
-        urlProduct, 
+        urlProduct,
         (width, height) => {
-          if ( width ) {
-            setImageUri(urlProduct)
-            setRatio(width / height)
+          // console.log(width,"width", height," height")
+          if (width && height) {
+            if (height >= 692) {
+              setImageUri(urlProduct)
+              setRatio((width +150 ) / height)
+            }
+            else {
+              setImageUri(urlProduct)
+              setRatio(width / height)
+            }
           }
-        },() => {
+        }, () => {
           setImageUri(urlApp.logoTextUrl)
           Image.getSize(
             urlApp.logoTextUrl,
-            (width, height) =>  setRatio(width / height)
+            (width, height) => setRatio(width / height)
           )
         })
     }
   }, [])
 
-  if(ratio != -1 && imageUri) {
+  if (ratio != -1 && imageUri) {
     return (
       <Image
-        source={{uri: `${imageUri}`}}
+        source={{ uri: `${imageUri}` }}
         style={{ aspectRatio: ratio }}
       />
     )
   }
-  
+
   return null
 }

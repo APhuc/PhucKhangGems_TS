@@ -1,19 +1,8 @@
 {
-	"absolute": {
-		"style": {
-			"position": "absolute"
-		}
-	},
 	"my-2.5": {
 		"style": {
 			"marginTop": 10,
 			"marginBottom": 10
-		}
-	},
-	"my-2": {
-		"style": {
-			"marginTop": 8,
-			"marginBottom": 8
 		}
 	},
 	"mx-5": {
@@ -22,9 +11,10 @@
 			"marginRight": 20
 		}
 	},
-	"mt-3": {
+	"my-2": {
 		"style": {
-			"marginTop": 12
+			"marginTop": 8,
+			"marginBottom": 8
 		}
 	},
 	"mt-2": {
@@ -32,64 +22,14 @@
 			"marginTop": 8
 		}
 	},
-	"mt-1": {
-		"style": {
-			"marginTop": 4
-		}
-	},
-	"mt-2.5": {
-		"style": {
-			"marginTop": 10
-		}
-	},
-	"ml-2": {
-		"style": {
-			"marginLeft": 8
-		}
-	},
-	"ml-4": {
-		"style": {
-			"marginLeft": 16
-		}
-	},
-	"ml-6": {
-		"style": {
-			"marginLeft": 24
-		}
-	},
-	"mr-6": {
-		"style": {
-			"marginRight": 24
-		}
-	},
-	"mr-2": {
-		"style": {
-			"marginRight": 8
-		}
-	},
-	"mr-4": {
-		"style": {
-			"marginRight": 16
-		}
-	},
 	"mr-3": {
 		"style": {
 			"marginRight": 12
 		}
 	},
-	"ml-2.5": {
+	"hidden": {
 		"style": {
-			"marginLeft": 10
-		}
-	},
-	"ml-5": {
-		"style": {
-			"marginLeft": 20
-		}
-	},
-	"flex": {
-		"style": {
-			"display": "flex"
+			"display": "none"
 		}
 	},
 	"h-10": {
@@ -110,16 +50,6 @@
 	"w-full": {
 		"style": {
 			"width": "100%"
-		}
-	},
-	"w-80": {
-		"style": {
-			"width": 320
-		}
-	},
-	"w-96": {
-		"style": {
-			"width": 384
 		}
 	},
 	"flex-1": {
@@ -148,12 +78,6 @@
 			"backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))"
 		}
 	},
-	"bg-red-100": {
-		"style": {
-			"--tw-bg-opacity": 1,
-			"backgroundColor": "rgb(254 226 226 / var(--tw-bg-opacity))"
-		}
-	},
 	"p-3": {
 		"style": {
 			"paddingTop": 12,
@@ -168,6 +92,12 @@
 			"paddingRight": 20
 		}
 	},
+	"px-2": {
+		"style": {
+			"paddingLeft": 8,
+			"paddingRight": 8
+		}
+	},
 	"px-1": {
 		"style": {
 			"paddingLeft": 4,
@@ -180,27 +110,39 @@
 			"paddingBottom": 4
 		}
 	},
-	"px-2": {
+	"py-60": {
 		"style": {
-			"paddingLeft": 8,
-			"paddingRight": 8
+			"paddingTop": 240,
+			"paddingBottom": 240
 		}
 	},
-	"text-end": {
+	"py-6": {
 		"style": {
-			"textAlign": "end"
+			"paddingTop": 24,
+			"paddingBottom": 24
 		}
 	},
-	"text-sm": {
+	"py-3": {
 		"style": {
-			"fontSize": 14,
-			"lineHeight": 20
+			"paddingTop": 12,
+			"paddingBottom": 12
+		}
+	},
+	"text-center": {
+		"style": {
+			"textAlign": "center"
 		}
 	},
 	"text-lg": {
 		"style": {
 			"fontSize": 18,
 			"lineHeight": 28
+		}
+	},
+	"text-sm": {
+		"style": {
+			"fontSize": 14,
+			"lineHeight": 20
 		}
 	},
 	"underline": {

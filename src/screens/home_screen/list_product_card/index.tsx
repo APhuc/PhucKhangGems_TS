@@ -5,15 +5,16 @@ import { useTailwind } from 'tailwind-rn'
 import { typeGetProduct } from '@networking'
 import ItemProductCard from './item_product_card'
 import { guidelineBaseWidth, width } from '@constants'
+import { AppText } from '@components'
 
-export default function ListProductCard({ data } : { data: [typeGetProduct] | null }) {
+export default function ListProductCard({ data }: { data: [typeGetProduct] | null }) {
   const tw = useTailwind()
 
   const numColumns = Math.ceil(width / guidelineBaseWidth)
 
-  if(data) {
+  if (data) {
     return (
-      <ScrollView 
+      <ScrollView
         contentContainerStyle={tw('w-full px-5')}
         showsVerticalScrollIndicator={false} >
         <View style={tw('flex-row')}>
@@ -22,16 +23,20 @@ export default function ListProductCard({ data } : { data: [typeGetProduct] | nu
               {data
                 .filter((_, index) => index % numColumns === colIndex)
                 .map(product => (
-                  <ItemProductCard 
+                  <ItemProductCard
                     product={product}
                     key={`${product.IDSanPham}`} />
                 ))}
             </View>
           ))}
         </View>
-    </ScrollView>
+      </ScrollView>
     )
   }
 
-  return null
+  return (
+    <View >
+
+    </View>
+  )
 }

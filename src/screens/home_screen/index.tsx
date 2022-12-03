@@ -3,17 +3,18 @@ import { useCallback, useEffect, useState } from 'react'
 
 import * as SplashScreen from 'expo-splash-screen'
 
-import { useTailwind,  } from 'tailwind-rn'
+import { useTailwind, } from 'tailwind-rn'
 
 import { typeGetProduct, postApi, request } from '@networking'
 import { useAppSelector } from '@reduxApp/hooks'
 import ListProductCard from './list_product_card'
 import SearchCard from './search_card'
 import { urlApp } from '@constants'
+import { AppText } from '@components'
 
 export default function HomeScreen() {
   const tw = useTailwind()
-  
+
   const theme = useAppSelector((state) => state.theme.value)
 
   const [appIsReady, setAppIsReady] = useState(false)
@@ -46,14 +47,26 @@ export default function HomeScreen() {
   if (!appIsReady) {
     return null
   }
+  if (!dataListProduct) {
+    return (
+      <View
+        onLayout={onLayoutRootView}
+        style={[tw('flex-1'), { backgroundColor: theme.BG_APP }]}>
+        <SearchCard />
 
-  return (
-    <View 
-      onLayout={onLayoutRootView}
-      style={[tw('flex-1'), { backgroundColor: theme.BG_APP }]}>
-      <SearchCard />
+        <ListProductCard data={dataListProduct} />
+      </View>
+    )
+  } else {
+    return (
+      <View style={tw('text-center mt-2')}>
+        <AppText
+          style={tw('text-sm mt-2')}
+          weight={8}>
+          Load dữ liệu  thất bại
+        </AppText>
+      </View>
+    )
+  }
 
-      <ListProductCard data={dataListProduct}/>
-    </View>
-  )
 }
