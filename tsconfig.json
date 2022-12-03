@@ -7,8 +7,13 @@
     "paths": {
       "*": ["src/*"],
       "@components": ["src/components"],
+      "@constants": ["src/constants"],
+      "@handles": ["src/handles"],
       "@navigation": ["src/navigation"],
-      "@screens": ["src/screens"]
+      "@networking": ["src/networking"],
+      "@reduxApp/*": ["src/reduxApp/*"],
+      "@screens": ["src/screens"],
+      "@themes/*": ["src/themes/*"],
     }
   }
 }

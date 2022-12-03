@@ -10,8 +10,13 @@ module.exports = function(api) {
           extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
           alias: {
             "@components": "./src/components",
+            "@constants": "./src/constants",
+            "@handles": "./src/handles",
             "@navigation": "./src/navigation",
-            "@screens": "./src/screens"
+            "@networking": "./src/networking",
+            "@reduxApp": "./src/reduxApp",
+            "@screens": "./src/screens",
+            "@themes": "./src/themes",
           }
         }
       ]

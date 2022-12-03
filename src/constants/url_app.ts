@@ -1,20 +1,21 @@
-const serverUrl = 'https://uat.phuckhanggem.com/'
+const serverUrl = 'https://uat.phuckhanggem.com'
 
-const logoUrl = `${serverUrl}_imageslibrary/logonotext.png`
+const logoUrl = `${serverUrl}/_imageslibrary/logonotext.png`
 
-const apiUrl = `${serverUrl}api/API/`
+const logoTextUrl = `${serverUrl}/_imageslibrary/logo.png`
+
+const apiUrl = `${serverUrl}/api/API/`
 
 const postUrl = {
   getProduct: `${apiUrl}GetSanPham`
-}
+} as const
 type typePostUrl = typeof postUrl
 type keyPostUrl = keyof typePostUrl
-type valuePostUrl = typePostUrl[keyPostUrl]
+export type valuePostUrl = typePostUrl[keyPostUrl]
 
 const urlApp = {
-  serverUrl, logoUrl, apiUrl, postUrl
+  serverUrl, apiUrl, postUrl,
+  logoUrl, logoTextUrl
 }
-
-
 
 export default urlApp

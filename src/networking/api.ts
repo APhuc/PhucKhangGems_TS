@@ -1,4 +1,9 @@
-const postApi = async (url, request) => {
+import { valuePostUrl } from '@constants'
+import { valueRequest } from './request'
+
+export const postApi = async (
+  url: valuePostUrl, request: valueRequest
+) => {
   try {
     const response = await fetch(url, {
       method: 'POST',

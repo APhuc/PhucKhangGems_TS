@@ -1,4 +1,4 @@
-type getProduct = {
+export type typeGetProduct = {
   IDSanPham: number
   SoLuongYeuThich: number
   MaSanPham: String

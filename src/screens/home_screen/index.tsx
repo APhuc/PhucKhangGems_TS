@@ -2,30 +2,30 @@ import { View } from 'react-native'
 import { useCallback, useEffect, useState } from 'react'
 
 import * as SplashScreen from 'expo-splash-screen'
-import * as Font from 'expo-font'
 
-import { useTailwind } from 'tailwind-rn'
+import { useTailwind,  } from 'tailwind-rn'
+
+import { typeGetProduct, postApi, request } from '@networking'
+import { useAppSelector } from '@reduxApp/hooks'
+import ListProductCard from './list_product_card'
+import SearchCard from './search_card'
+import { urlApp } from '@constants'
 
 export default function HomeScreen() {
   const tw = useTailwind()
+  
+  const theme = useAppSelector((state) => state.theme.value)
 
   const [appIsReady, setAppIsReady] = useState(false)
-
-  const pathFont = '../../../assets/fonts/'
+  const [dataListProduct, setDataListProduct] = useState<[typeGetProduct] | null>(null)
 
   useEffect(() => {
     async function prepare() {
       try {
-        await Font.loadAsync({
-          'Nunito[200]': require(`${pathFont}Nunito-ExtraLight.ttf`),
-          'Nunito[300]': require(`${pathFont}Nunito-Light.ttf`),
-          'Nunito[400]': require(`${pathFont}Nunito-Regular.ttf`),
-          'Nunito[500]': require(`${pathFont}Nunito-Medium.ttf`),
-          'Nunito[600]': require(`${pathFont}Nunito-SemiBold.ttf`),
-          'Nunito[700]': require(`${pathFont}Nunito-Bold.ttf`),
-          'Nunito[800]': require(`${pathFont}Nunito-ExtraBold.ttf`),
-          'Nunito[900]': require(`${pathFont}Nunito-Black.ttf`)
-        })
+        const { result, error } = await postApi(urlApp.postUrl.getProduct, request.getProduct)
+        if (!error) {
+          setDataListProduct(result as [typeGetProduct])
+        }
         await new Promise(resolve => setTimeout(resolve, 2000))
       } catch (e) {
         console.warn(e)
@@ -48,8 +48,12 @@ export default function HomeScreen() {
   }
 
   return (
-    <View
+    <View 
       onLayout={onLayoutRootView}
-    />
+      style={[tw('flex-1'), { backgroundColor: theme.BG_APP }]}>
+      <SearchCard />
+
+      <ListProductCard data={dataListProduct}/>
+    </View>
   )
 }
