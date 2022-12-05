@@ -19,8 +19,6 @@ type Props = {
     lengthData?: undefined;
   }>
 }
-console.log("WIdth", width, "height", height)
-
 const ListProductCard: React.FC<Props> = ({
   data, callApiGetData
 }) => {
