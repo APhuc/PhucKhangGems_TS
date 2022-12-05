@@ -1,13 +1,16 @@
 import { Pressable, Image } from 'react-native'
 
+import { FontAwesome } from '@expo/vector-icons'
 import { useFonts } from 'expo-font'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useTailwind, Style } from 'tailwind-rn'
 
 import { RootStackScreenProps, RootStackParamList } from './type'
-import { fontFamilyApp, urlApp, strApp } from '@constants'
+import { fontFamilyApp, urlApp, strApp, scale } from '@constants'
+import { useAppSelector } from '@reduxApp/hooks'
 import { HomeScreen } from '@screens'
+import { AppText } from '@components'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -38,7 +41,7 @@ export default function StackNavigator() {
           headerLeft: () => <HeaderLeft navigation={navigation} route={route} />,
           headerTitle: strApp.str_product,
           headerTitleStyle: { fontFamily: fontFamilyApp(7) },
-
+          headerRight: () => <HeaderRight />
         })} />
     </Stack.Navigator>
   )
@@ -47,19 +50,31 @@ export default function StackNavigator() {
 const HeaderLeft = ({ navigation }: RootStackScreenProps<'Home'>) => {
   const tw = useTailwind()
 
-  const { logo } = styles(tw)
-
   const _onPress = () => navigation.navigate('Home')
 
   return (
     <Pressable onPress={_onPress}>
       <Image
         source={{ uri: urlApp.logoUrl }}
-        style={logo} />
+        style={[tw('w-10 h-10'), { resizeMode: 'contain'}]} />
     </Pressable>
   )
 }
 
-const styles = (tw: (_classNames: string) => Style) => ({
-  logo: [tw('w-10 h-10'), { resizeMode: 'contain'}]
-})
+const HeaderRight = () => {
+  const tw = useTailwind()
+
+  const theme = useAppSelector((state) => state.theme.value)
+  const cartQuantity = useAppSelector((state) => state.cartQuantity.value)
+
+  return (
+    <Pressable style={tw('flex-row items-center')}>
+      <FontAwesome name='opencart' size={scale(24)} color={theme.COLOR_ICON} />
+
+      <AppText
+        style={[tw('text-base'), { color: theme.COLOR_TEXT_MONNEY }]}
+        weight={8}
+      >{Object.keys(cartQuantity).length}</AppText>
+    </Pressable>
+  )
+}

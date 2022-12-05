@@ -7,7 +7,8 @@ const logoTextUrl = `${serverUrl}/_imageslibrary/logo.png`
 const apiUrl = `${serverUrl}/api/API/`
 
 const postUrl = {
-  getProduct: `${apiUrl}GetSanPham`
+  getProduct: `${apiUrl}GetSanPham`,
+  productHandling: `${apiUrl}XuLySanPham`,
 } as const
 type typePostUrl = typeof postUrl
 type keyPostUrl = keyof typePostUrl

@@ -14,16 +14,9 @@ export default function ImageItem({ url }: { url: String | undefined }) {
       Image.getSize(
         urlProduct,
         (width, height) => {
-          // console.log(width,"width", height," height")
           if (width && height) {
-            if (height >= 692) {
-              setImageUri(urlProduct)
-              setRatio((width +150 ) / height)
-            }
-            else {
-              setImageUri(urlProduct)
-              setRatio(width / height)
-            }
+            setImageUri(urlProduct)
+            setRatio(width / height)
           }
         }, () => {
           setImageUri(urlApp.logoTextUrl)
@@ -39,8 +32,7 @@ export default function ImageItem({ url }: { url: String | undefined }) {
     return (
       <Image
         source={{ uri: `${imageUri}` }}
-        style={{ aspectRatio: ratio }}
-      />
+        style={{ aspectRatio: ratio }} />
     )
   }
 

@@ -12,10 +12,12 @@ module.exports = function(api) {
             "@components": "./src/components",
             "@constants": "./src/constants",
             "@handles": "./src/handles",
+            "@modelApp": "./src/modelApp",
             "@navigation": "./src/navigation",
             "@networking": "./src/networking",
             "@reduxApp": "./src/reduxApp",
             "@screens": "./src/screens",
+            "@storage": "./src/storage",
             "@themes": "./src/themes",
           }
         }

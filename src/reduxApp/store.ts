@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import cartQuantityReducer from './cart_quantity'
 import themeReducer from '@themes/slice'
 
 export const store = configureStore({
     reducer: {
-        theme: themeReducer
+        theme: themeReducer,
+        cartQuantity: cartQuantityReducer
     }
 })
 

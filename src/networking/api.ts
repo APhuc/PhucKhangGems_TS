@@ -13,7 +13,7 @@ export const postApi = async (
       },
       body: JSON.stringify(request)
     })
-    if(!response.ok) {
+    if (!response.ok) {
       return { error: 'Error: ' + url }
     }
     const json = await response.json()
