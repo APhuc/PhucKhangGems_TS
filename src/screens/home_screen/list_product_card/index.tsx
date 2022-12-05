@@ -1,9 +1,9 @@
 import { ActivityIndicator, RefreshControl, ScrollView, View } from 'react-native'
-import { useCallback, useState, memo } from 'react'
+import { useCallback, useState, memo, useEffect, useLayoutEffect } from 'react'
 
 import { useTailwind } from 'tailwind-rn'
 
-import { guidelineBaseWidth, strApp, width } from '@constants'
+import { guidelineBaseWidth, strApp, width, height } from '@constants'
 import { typeGetProduct, request } from '@networking'
 import ItemProductCard from './item_product_card'
 import { useAppSelector } from '@reduxApp/hooks'
@@ -15,19 +15,28 @@ type Props = {
     isGetData: boolean;
     lengthData: any;
   } | {
-      isGetData: boolean;
-      lengthData?: undefined;
+    isGetData: boolean;
+    lengthData?: undefined;
   }>
 }
+console.log("WIdth", width, "height", height)
 
 const ListProductCard: React.FC<Props> = ({
   data, callApiGetData
 }) => {
   const tw = useTailwind()
-
+  const [numColumns, setNumColumns] = useState(2)
   const theme = useAppSelector((state) => state.theme.value)
 
-  const numColumns = Math.ceil(width / guidelineBaseWidth)
+  // const numColumns = Math.ceil(width / guidelineBaseWidth);
+  useLayoutEffect(() => {
+    const numDefault = Math.ceil(width / guidelineBaseWidth);
+    if (numDefault !== 1) {
+      setNumColumns(numDefault)
+    } else {
+      setNumColumns(2)
+    }
+  }, [width])
 
   const [refreshing, setRefreshing] = useState(false)
   const [scroll, setScroll] = useState({
@@ -101,7 +110,7 @@ const ListProductCard: React.FC<Props> = ({
   )
 }
 
-function ListProductCardPropsAreEqual(prevProp: Readonly<Props>, nextProp:  Readonly<Props>) {
+function ListProductCardPropsAreEqual(prevProp: Readonly<Props>, nextProp: Readonly<Props>) {
   return prevProp.data == nextProp.data
 }
 const MemoizedListProductCard = memo(ListProductCard, ListProductCardPropsAreEqual)
