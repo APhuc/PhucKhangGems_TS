@@ -1,0 +1,17 @@
+TailwindProvider
+ - Type '{ children: Element; utilities: {}; }' is not assignable to type 'IntrinsicAttributes & Props'.
+ => node_modules/tailwind-rn/dist/tailwind-provider.d.ts 
+ => interface Props {
+        children: React.ReactNode;
+        ......
+    }
+
+Start app:
+ 1. npm run dev:tailwind
+ 2. npm start
+
+Setting:
+ node: 16.18.1
+
+APP:
+    - font: Nunito
