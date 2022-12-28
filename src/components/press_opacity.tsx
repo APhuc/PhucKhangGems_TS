@@ -1,7 +1,7 @@
 import { GestureResponderEvent, ViewStyle, Pressable  } from 'react-native'
 
 interface PressOpacityProps {
-  children: React.ReactNode
+  children?: React.ReactNode
   style: ViewStyle
   press: (event: GestureResponderEvent) => void
   isDisable?: boolean

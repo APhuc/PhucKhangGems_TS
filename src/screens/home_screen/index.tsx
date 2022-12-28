@@ -2,15 +2,17 @@ import { useCallback, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 import * as SplashScreen from 'expo-splash-screen'
+import { useTailwind } from 'tailwind-rn'
 
 import { typeGetProduct, postApi, request } from '@networking'
 import MemoizedListProductCard from './list_product_card'
+import { KeyboardDismiss, SearchCard } from '@components'
 import { useAppSelector } from '@reduxApp/hooks'
-import { KeyboardDismiss } from '@components'
-import SearchCard from './search_card'
-import { urlApp } from '@constants'
+import { strApp, urlApp } from '@constants'
 
 export default function HomeScreen() {
+  const tw = useTailwind()
+
   const theme = useAppSelector((state) => state.theme.value)
 
   const [appIsReady, setAppIsReady] = useState(false)
@@ -42,6 +44,10 @@ export default function HomeScreen() {
           isGetData: true,
           lengthData: result.length
         }
+      } else {
+        if (request.getProduct.sotrang == 1) {
+          setDataListProduct([])
+        }
       }
       return {
         isGetData: true,
@@ -50,6 +56,8 @@ export default function HomeScreen() {
     }
     return { isGetData: false }
   }
+
+  const _onSearch = async (text: string) => callApiGetProduct(1, text)
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
@@ -66,7 +74,11 @@ export default function HomeScreen() {
       <View
         onLayout={onLayoutRootView}
         style={{ flex: 1, backgroundColor: theme.BG_APP }}>
-        <SearchCard callApiGetData={callApiGetProduct} />
+        <View style={tw('my-2.5 mx-5')}>
+          <SearchCard 
+            onSearch={_onSearch}
+            placeholder={`${strApp.str_search}......`} />
+        </View>
 
         <MemoizedListProductCard 
           data={dataListProduct}

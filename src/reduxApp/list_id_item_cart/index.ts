@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 type typePayload = {
   idProduct: string
-  action: 'increment' | 'decrement' | 'delete'
+  action: 'increment' | 'decrement' | 'delete' | 'remove'
 }
 
 interface idItems {
@@ -24,24 +24,29 @@ export const listIdItemCartSlice = createSlice({
   reducers: {
     changeListIdItemCart: (state, action: PayloadAction<typePayload>) => {
       const id = action.payload.idProduct
-      if (state.value[id]) {
-        switch (action.payload.action) {
-          case 'increment':
-            state.value[id] += 1
-            break
-          case 'decrement':
-            if (state.value[id] == 1) {
-              delete state.value[id]
-            } else {
-              state.value[id] -= 1
-            }
-            break
-          case 'delete':
-            delete state.value[id]
-            break
-        }
+      if (id === '-101' && action.payload.action === 'remove') {
+        console.log(state.value)
+        state.value = {}
       } else {
-        state.value[id] = 1
+        if (state.value[id]) {
+          switch (action.payload.action) {
+            case 'increment':
+              state.value[id] += 1
+              break
+            case 'decrement':
+              if (state.value[id] == 1) {
+                delete state.value[id]
+              } else {
+                state.value[id] -= 1
+              }
+              break
+            case 'delete':
+              delete state.value[id]
+              break
+          }
+        } else {
+          state.value[id] = 1
+        }
       }
     }
   }

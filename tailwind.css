@@ -18,14 +18,28 @@
   right: 0px
 }
 
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem
+.m-5 {
+  margin: 1.25rem
+}
+
+.my-2\.5 {
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem
 }
 
 .mx-5 {
   margin-left: 1.25rem;
   margin-right: 1.25rem
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem
+}
+
+.my-3 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem
 }
 
 .mx-0\.5 {
@@ -38,13 +52,28 @@
   margin-right: 0px
 }
 
-.my-2\.5 {
-  margin-top: 0.625rem;
-  margin-bottom: 0.625rem
+.mr-3 {
+  margin-right: 0.75rem
+}
+
+.ml-3 {
+  margin-left: 0.75rem
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem
+}
+
+.mb-4 {
+  margin-bottom: 1rem
 }
 
 .mt-3 {
   margin-top: 0.75rem
+}
+
+.mt-5 {
+  margin-top: 1.25rem
 }
 
 .mb-1 {
@@ -55,6 +84,18 @@
   margin-right: 0.25rem
 }
 
+.mt-10 {
+  margin-top: 2.5rem
+}
+
+.ml-4 {
+  margin-left: 1rem
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem
+}
+
 .mt-4 {
   margin-top: 1rem
 }
@@ -63,24 +104,8 @@
   margin-top: 0.25rem
 }
 
-.ml-3 {
-  margin-left: 0.75rem
-}
-
 .mt-2 {
   margin-top: 0.5rem
-}
-
-.mt-5 {
-  margin-top: 1.25rem
-}
-
-.mb-5 {
-  margin-bottom: 1.25rem
-}
-
-.mr-3 {
-  margin-right: 0.75rem
 }
 
 .flex {
@@ -95,8 +120,16 @@
   display: none
 }
 
+.h-8 {
+  height: 2rem
+}
+
 .h-10 {
   height: 2.5rem
+}
+
+.h-1 {
+  height: 0.25rem
 }
 
 .h-28 {
@@ -109,10 +142,6 @@
 
 .h-2 {
   height: 0.5rem
-}
-
-.h-8 {
-  height: 2rem
 }
 
 .w-10 {
@@ -159,12 +188,16 @@
   align-self: baseline
 }
 
-.rounded-lg {
-  border-radius: 0.5rem
-}
-
 .rounded-full {
   border-radius: 9999px
+}
+
+.rounded-3xl {
+  border-radius: 1.5rem
+}
+
+.rounded-lg {
+  border-radius: 0.5rem
 }
 
 .rounded-md {
@@ -198,19 +231,42 @@
   padding: 0.5rem
 }
 
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem
+.p-9 {
+  padding: 2.25rem
 }
 
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem
+.p-3 {
+  padding: 0.75rem
 }
 
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem
+}
+
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem
+}
+
+.py-2\.5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem
 }
 
 .px-1 {
@@ -223,22 +279,20 @@
   padding-bottom: 0.75rem
 }
 
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem
+.pl-2 {
+  padding-left: 0.5rem
 }
 
-.px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem
+.pt-4 {
+  padding-top: 1rem
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem
 }
 
 .pl-3 {
   padding-left: 0.75rem
-}
-
-.pl-2 {
-  padding-left: 0.5rem
 }
 
 .pb-5 {
@@ -253,13 +307,13 @@
   font-size: 1rem
 }
 
+.text-xl {
+  font-size: 1.25rem
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem
-}
-
-.text-xl {
-  font-size: 1.25rem
 }
 
 .text-sm {

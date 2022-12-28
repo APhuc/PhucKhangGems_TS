@@ -35,7 +35,8 @@ export default function DetailAdress(
   }
   const defaultWardDistrict = {
     name: strApp.str_choose_wards_district,
-    code: '-1'
+    code: '-1',
+    city: ''
   }
 
   const theme = useAppSelector((state) => state.theme.value)
@@ -80,7 +81,8 @@ export default function DetailAdress(
         contents.map(content => {
           menus.push({
             name: `${content.CityName2}, ${content.CityName}`,
-            code: content.CityName
+            code: content.CityName,
+            city: content.SubdivisionName2
           })
         })
         setWardsDistricts(menus)

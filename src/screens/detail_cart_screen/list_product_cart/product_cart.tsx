@@ -1,4 +1,5 @@
 import { Image, View } from 'react-native'
+import { useState } from 'react'
 
 import { Ionicons } from '@expo/vector-icons'
 import { useTailwind } from 'tailwind-rn'
@@ -22,12 +23,16 @@ const ProductCart: React.FC<Props> = ({ product, countProduct, index, pressDelet
 
   const theme = useAppSelector((state) => state.theme.value)
 
+  const [uri, setUri] = useState(`${urlApp.serverUrl}${product.URLImage}`)
+
   const titleNameStyle = [
     { color: theme.COLOR_TEXT_NAME },
     tw('text-base')
   ]
   const monneyStyle = tw('text-lg flex-1')
   const weightTextMonney = 7
+
+  const _onError = () => setUri(urlApp.logoTextUrl)
 
   const _onPress = () => pressDelete(index, `${product.IDSanPham}`)
 
@@ -36,11 +41,12 @@ const ProductCart: React.FC<Props> = ({ product, countProduct, index, pressDelet
       style={tw('bg-white flex-row py-3 pl-3 my-2')}
       key={`${product.IDSanPham}`} >
       <Image 
-        source={{ uri: `${urlApp.serverUrl}${product.URLImage}` }}
+        source={{ uri: uri }}
         style={[
           { resizeMode: 'stretch' },
           tw('w-20 h-28')
-        ]} />
+        ]}
+        onError={_onError} />
       
       <View style={tw('pl-2 flex-1')}>
         <AppText

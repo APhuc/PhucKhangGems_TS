@@ -120,6 +120,18 @@ export type typeGetDeliveryCharges = {
   khuvucduocgiaohang: string
 }
 
+export type typeGetVoucher = {
+  value: string
+  NoiBoText: string
+  NoiBo: number
+  label: string
+  MaGiamGia: string
+  LoaiGiamGia: string
+  SoTienGiamGia: number
+  TyLeGiamGia: number
+  success: string | null
+}
+
 type typeGetOrder = {
   MaDonHang: string
   HoTenNguoiNhan: string
@@ -150,6 +162,63 @@ type typeGetProductPayment = {
 }
 
 export type typeGetPayment = {
-  DonHang: typeGetOrder[]
-  SanPham: typeGetProductPayment[]
+  DonHang?: typeGetOrder[]
+  SanPham?: typeGetProductPayment[]
+}
+
+export type typeGetContact = {
+  IDCuaHang: number
+  DienThoaiCuaHang: string
+  DiaChiWebCuaHang: string
+  URLLogo: string
+  TenCuaHang: string
+  IDCuaHangCha: number
+  CapDoCuaHang: number
+  MaCuaHang: string
+  TenNguoiDaiDienCuaHang: string
+  DienThoaiCuaHang1: string
+  EmailCuaHang: string
+  DiaChiWebCuaHang1: string
+  MaBang: string
+  MaQuocGia: string
+  TenBang: string
+  TenQuocGia: string
+  ThanhPho: string
+  DiaChiCuaHang2: string
+  DiaChiCuaHang: string
+  success: string | null
+}
+
+export type typeGetPolicy = {
+  IDBaiViet: number
+  URLHinhDaiDien: string
+  TieuDe: string
+  NoiDung: string
+  NguoiDang: string
+  MaChuyenMuc: string
+  NgayBatDau: string
+  NgayKetThuc: string
+  LienHe: string | null
+  STT: number
+  success: string | null
+};
+
+export type typeGetCodeOrder = {
+  IDDonHang: number
+  MaDonChung: string
+  MaDonHang: string
+  TongSoLuong: number
+  TongSoTien: number
+  TongSoTienThanhToan: number
+  LoaiDonHang: number
+  TinhTrangDonHang: string
+  DuocPhepHuy: number
+  DienThoaiKhachHang: string
+  HoTenNguoiNhan: string
+  NgayHeThong: string
+  NgayDatHang: string
+  GhiChu: string | null
+  HoTenNguoiNhan1: string
+  HinhThucNhanHang: number
+  success: string | null
 }

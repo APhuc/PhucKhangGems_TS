@@ -1,16 +1,12 @@
-import { Pressable, Image } from 'react-native'
-
-import { FontAwesome } from '@expo/vector-icons'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useFonts } from 'expo-font'
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { useTailwind, Style } from 'tailwind-rn'
-
-import { HomeScreen, DetailProductScreen, DetailCartScreen } from '@screens'
-import { RootStackScreenProps, RootStackParamList } from './type'
-import { fontFamilyApp, urlApp, strApp, scale } from '@constants'
+import { DetailProductScreen, DetailCartScreen, ContactScreen, PolicyScreen } from '@screens'
+import BottomTabNavigator from './bottom_tab_navigator'
+import { fontFamilyApp, strApp } from '@constants'
 import { useAppSelector } from '@reduxApp/hooks'
-import { AppText } from '@components'
+import { RootStackParamList } from './type'
+import HeaderRight from './header_right'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -39,14 +35,9 @@ export default function StackNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
       <Stack.Screen 
-        name='Home' 
-        component={HomeScreen}
-        options={({ navigation, route }) => ({
-          headerLeft: () => <HeaderLeft navigation={navigation} route={route} />,
-          headerTitle: strApp.str_product,
-          headerTitleStyle: headerTitleStyle,
-          headerRight: () => <HeaderRight navigation={navigation} route={route} />
-        })} />
+        name='Root'
+        component={BottomTabNavigator}
+        options={{ headerShown: false }} />
 
       <Stack.Screen 
         name='DetailProduct' 
@@ -54,7 +45,10 @@ export default function StackNavigator() {
         options={({ navigation, route }) => ({
           headerTitle: strApp.str_detail_product,
           headerTitleStyle: headerTitleStyle,
-          headerRight: () => <HeaderRight navigation={navigation} route={route}/>,
+          headerRight: () => {
+            const pressCart = () => navigation.navigate('DetailCart')
+
+            return <HeaderRight press={pressCart} />},
           headerTintColor: theme.COLOR_ICON,
           headerBackTitleVisible: false
         })} />
@@ -68,45 +62,26 @@ export default function StackNavigator() {
           headerTintColor: theme.COLOR_ICON,
           headerBackTitleVisible: false
         }} />
+      
+      <Stack.Screen 
+        name='Contact'
+        component={ContactScreen}
+        options={{
+          headerTitle: strApp.str_contact,
+          headerTitleStyle: headerTitleStyle,
+          headerTintColor: theme.COLOR_ICON,
+          headerBackTitleVisible: false
+        }} />
+      
+      <Stack.Screen 
+        name='Policy'
+        component={PolicyScreen}
+        options={{
+          headerTitle: strApp.str_policy,
+          headerTitleStyle: headerTitleStyle,
+          headerTintColor: theme.COLOR_ICON,
+          headerBackTitleVisible: false
+        }} />
     </Stack.Navigator>
-  )
-}
-
-const HeaderLeft = ({ navigation }: RootStackScreenProps<'Home'>) => {
-  const tw = useTailwind()
-
-  const _onPress = () => navigation.navigate('Home')
-
-  return (
-    <Pressable onPress={_onPress}>
-      <Image
-        source={{ uri: urlApp.logoUrl }}
-        style={[tw('w-10 h-10'), { resizeMode: 'contain'}]} />
-    </Pressable>
-  )
-}
-
-const HeaderRight = ({ navigation }: RootStackScreenProps<'Home' | 'DetailProduct'>) => {
-  const tw = useTailwind()
-
-  const theme = useAppSelector((state) => state.theme.value)
-  const listIdItemCart = useAppSelector((state) => state.listIdItemCart.value)
-
-  const _onPress = () => navigation.navigate('DetailCart')
-
-  const countCart = Object.keys(listIdItemCart).length
-
-  return (
-    <Pressable 
-      style={tw('flex-row items-center')}
-      disabled={countCart < 1}
-      onPress={_onPress} >
-      <FontAwesome name='opencart' size={scale(24)} color={theme.COLOR_ICON} />
-
-      <AppText
-        style={[tw('text-base'), { color: theme.COLOR_TEXT_MONNEY }]}
-        weight={8}
-      >{countCart > 0 ? Object.values(listIdItemCart).reduce((t, n) => t + n) : ''}</AppText>
-    </Pressable>
   )
 }

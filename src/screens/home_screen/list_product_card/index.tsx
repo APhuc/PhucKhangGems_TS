@@ -51,22 +51,25 @@ const ListProductCard: React.FC<Props> = ({
   }, [refreshing])
 
   const _onScroll = async ({ nativeEvent } : { nativeEvent: NativeScrollEvent }) => {
-    if (isBottom(nativeEvent)) {
-      const { isScroll, hasReachedMax } = scroll
+    const { isScroll, hasReachedMax } = scroll
+    if (isBottom(nativeEvent) && !isScroll && !hasReachedMax) {
       if (!isScroll && !hasReachedMax) {
         setScroll({
           isScroll: true,
           hasReachedMax: false
         })
-        setTimeout(async () => {
-          if (data.length % request.getProduct.soitem == 0) {
-            const { isGetData, lengthData } = await callApiGetData(data.length / request.getProduct.soitem + 1, request.getProduct.timkiem)
-            setScroll({
-              isScroll: !isGetData,
-              hasReachedMax: !(lengthData == request.getProduct.soitem)
-            })
-          }
-        }, 500)
+        if (data.length % request.getProduct.soitem == 0) {
+          const { isGetData, lengthData } = await callApiGetData(data.length / request.getProduct.soitem + 1, request.getProduct.timkiem)
+          setScroll({
+            isScroll: !isGetData,
+            hasReachedMax: !(lengthData == request.getProduct.soitem)
+          })
+        } else {
+          setScroll({
+            isScroll: false,
+            hasReachedMax: false
+          })
+        }
       }
     }
   }

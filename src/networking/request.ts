@@ -52,34 +52,57 @@ const request = {
     trongluong: 0,
     trigia: 0,
     manhavanchuyen: '',
-    chuyenphatnhanh: false,
+    chuyenphatnhanh: false,//auto
     giatoithieunoitinh: 0,
     giatoithieulientinh: 0
   },
   payment: {
-    dienthoai: '',
+    dienthoai: '',//user login
     dienthoainhan: '',
-    tenkhachhang: '',
+    tenkhachhang: '',// ten nguoi nhan
     maquocgia: '',
     tenquocgia: '',
     mabang: '',
-    thanhpho: '',
-    tenbang: '',
+    thanhpho: '',//có zip code
+    tenbang: '',// tinh
     tenquan: '',
     diachi: '',
     hinhthucnhanhang: 0,
     hinhthucthanhtoan: 0,
-    dichvucongthem: [{"ID":4,"DonGia":"15000","SoLuong":1}],
+    dichvucongthem: [], // auto ribf 
     ghichu: '',
-    magiamgia: '', 
-    nhantaicuahang: 0,
-    magiamgias: '',
+    magiamgia: '',//
+    nhantaicuahang: 0, // hinhthucnhanhang
+    magiamgias: '',// nguoi dung nhap
     email: '',
-    ho: '',
-    ten: '',
+    ho: '',//ten nguoi nhan
+    ten: '',//ten nguio nhhan
     sanphamdachon: [] as any,
     phiship: 0,
-    sotiengiam: 0
+    sotiengiam: 0 // so tien giam
+  },
+  voucher: {
+    loai: 63,
+    magiamgia: ''
+  },
+  getContact: {
+    loai: 1
+  },
+  getPolicy: {
+    loai: 11,
+    thuoc: 'chinh-sach'
+  },
+  getOrderByCode: {
+    loai: 10,
+    madonhang: '',
+    soitem: 10,
+    page: 1
+  },
+  getOrderByPhone: {
+    loai: 10,
+    dienthoaikhachhang: '',
+    soitem: 10,
+    page: 1
   }
 }
 

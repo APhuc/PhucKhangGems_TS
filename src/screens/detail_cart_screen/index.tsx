@@ -1,34 +1,39 @@
-import { useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { Pressable, Modal, View } from 'react-native'
+import { useState } from 'react'
 
 import { KeyboardAwareScrollView } from '@pietile-native-kit/keyboard-aware-scrollview'
 import { SubmitHandler, Controller, useForm } from'react-hook-form'
+import { FontAwesome } from '@expo/vector-icons'
 import { useTailwind } from 'tailwind-rn'
 
 import { typeGetDeliveryCharges, typeGetProductCart, typeGetPayment, postApi, request } from '@networking'
 import { verticalScale, valueApp, strApp, urlApp, scale } from '@constants'
+import { changeListIdItemCart } from '@reduxApp/list_id_item_cart'
+import { useAppSelector, useAppDispatch } from '@reduxApp/hooks'
 import { PressOpacity, AppText } from '@components'
+import { RootStackScreenProps } from '@navigation'
 import ListProductCart from './list_product_cart'
-import { useAppSelector } from '@reduxApp/hooks'
 import DetailDelivery from './detail_delivery'
 import { FormValues, typeMenu } from './type'
 import DetailAdress from './detail_address'
 import { requiredRules } from './rules'
 import DetailUser from './detail_user'
 
-
-export default function DetailCartScreen() {
+export default function DetailCartScreen({ navigation }: RootStackScreenProps<'DetailCart'>) {
   const tw = useTailwind()
 
+  const dispatch = useAppDispatch()
   const theme = useAppSelector((state) => state.theme.value)
   const listIdItemCart = useAppSelector((state) => state.listIdItemCart.value)
 
   const [errorCountry, setErrorCountry] = useState(false)
   const [errorProvince, setErrorProvince] = useState(false)
   const [errorWardDistrict, setErrorWardDistrict] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
 
   const [valueProducts, setValueProducts] = useState<typeGetProductCart[]>([])
   const [deliveryCharges, setDeliveryCharges] = useState<number>(0)
+  const [dataOrder, setDataOrder] = useState<typeGetPayment>({})
 
   const { control, handleSubmit, getValues, setValue, formState: { errors } } = useForm({
     defaultValues: {
@@ -43,8 +48,9 @@ export default function DetailCartScreen() {
       },
       wardDistrict: {
         name: strApp.str_choose_wards_district,
-        code: '-1'
-      },
+        code: '-1',
+        city: ''
+      } as typeMenu,
       address: '',
       userName: '',
       userPhone: '',
@@ -63,6 +69,12 @@ export default function DetailCartScreen() {
         minimum_price_in_province: 0,
         minimum_price_out_province: 0
       } as typeMenu,
+      voucher: '',
+      dataVoucher: {
+        code: '',
+        value: '',
+        monney: 0
+      },
       note: ''
     }
   })
@@ -81,7 +93,7 @@ export default function DetailCartScreen() {
       const chooseProduct = valueProducts.map(product => {
         return {
           id: product.IDSanPham,
-          soluongtrukho: product.SoLuongTrongKho,
+          soluongtrukho: -listIdItemCart[`${product.IDSanPham}`],
           soluongdachon: listIdItemCart[`${product.IDSanPham}`],
           giaban: product.GiaBan,
           giasaugiam: product.GiaSauGiam,
@@ -89,6 +101,7 @@ export default function DetailCartScreen() {
           thoigianbaohanh: product.ThoiGianBaoHanh
         }
       })
+      const splitUserName = data.userName.split(' ')
       request.payment.diachi = data.address
       request.payment.dienthoai = data.userPhone
       request.payment.dienthoainhan = data.userPhone
@@ -105,10 +118,17 @@ export default function DetailCartScreen() {
       request.payment.tenkhachhang = data.userName
       request.payment.tenquan = data.wardDistrict.name.split(', ')[1]
       request.payment.tenquocgia = data.country.name
-      request.payment.thanhpho = data.province.name
+      request.payment.thanhpho = data.wardDistrict.city ?? ''
+      request.payment.ho = splitUserName[0]
+      request.payment.ten = splitUserName[splitUserName.length - 1]
+      request.payment.magiamgia = data.dataVoucher.code
+      request.payment.magiamgias = data.dataVoucher.value
+      request.payment.sotiengiam = data.dataVoucher.monney
       const { result, error } = await postApi(urlApp.postUrl.payment, request.payment)
       if (!error) {
         const contents = result as typeGetPayment
+        setModalVisible(true)
+        setDataOrder(contents)
       }
     }
   }
@@ -160,7 +180,11 @@ export default function DetailCartScreen() {
 
   const callApiDeliveryCharge = async(wardDistrict?: typeMenu, address?: string, transfer?: typeMenu, listIdItemCartChange?: any) => {
     let weight = 0
-    valueProducts.map(product => weight += (product.KhoiLuong * (listIdItemCartChange ? listIdItemCartChange[`${product.IDSanPham}`] : listIdItemCart[`${product.IDSanPham}`])))
+    let cost = 0
+    valueProducts.map(product => {
+      weight += (product.KhoiLuong * (listIdItemCartChange ? listIdItemCartChange[`${product.IDSanPham}`] : listIdItemCart[`${product.IDSanPham}`]))
+      cost += (product.GiaSauGiam * (listIdItemCartChange ? listIdItemCartChange[`${product.IDSanPham}`] : listIdItemCart[`${product.IDSanPham}`]))
+    })
 
     request.deliveryCharges.idcuahang = valueProducts[0].IDCuaHang
     request.deliveryCharges.matinhgui = valueProducts[0].MaBang
@@ -171,8 +195,8 @@ export default function DetailCartScreen() {
     request.deliveryCharges.quannhan = wardDistrict ? wardDistrict.name.split(', ')[1] : getValues('wardDistrict.name').split(', ')[1] 
     request.deliveryCharges.diachinhan = address ? address : getValues('address')
     request.deliveryCharges.trongluong = weight
+    request.deliveryCharges.trigia = cost
     request.deliveryCharges.manhavanchuyen = transfer ? transfer.code : getValues('transfer.code')
-    request.deliveryCharges.chuyenphatnhanh = (transfer ? transfer.code : getValues('transfer.code')) === valueApp.transfer.GHTK
     request.deliveryCharges.giatoithieunoitinh = (transfer ? transfer.minimum_price_in_province : getValues('transfer.minimum_price_in_province')) ?? 0
     request.deliveryCharges.giatoithieulientinh = (transfer ? transfer.minimum_price_out_province : getValues('transfer.minimum_price_out_province')) ?? 0
 
@@ -197,12 +221,40 @@ export default function DetailCartScreen() {
     }
   }
 
+  const onBlurVoucher = (value: string) => {
+    if (value) {
+      const values = value.split('{1}')
+      setValue('dataVoucher', {
+        code: values[1],
+        value: values[0],
+        monney: parseInt(values[2])
+      })
+    } else {
+      setValue('dataVoucher', {
+        code: '',
+        value: '',
+        monney: 0
+      })
+    }
+  }
+
+  const _onPressModal = async() => {
+    dispatch(changeListIdItemCart({
+      idProduct: '-101',
+      action: 'remove'
+    }))
+    setModalVisible(!modalVisible)
+    navigation.goBack()
+  }
+
   let nameProducts = ''
   valueProducts.map(product => {
     if (product.GiaSauGiam == 0) {
       nameProducts += (product.TenSanPham + ', ')
     }
   })
+
+  const styleTextModal = tw('text-base text-center mb-4')
 
   return (
     <KeyboardAwareScrollView 
@@ -245,7 +297,8 @@ export default function DetailCartScreen() {
         setValueTransfer={setValueTransfer}
         control={control}
         errors={errors}
-        products={valueProducts} />
+        products={valueProducts}
+        onBlurVoucher={onBlurVoucher} />
 
       {nameProducts.length > 0 &&
         <View style={[tw('border-2 p-2 mt-3'), { borderColor: theme.COLOR_BORDER_COUNT}]}>
@@ -273,6 +326,61 @@ export default function DetailCartScreen() {
           style={[tw('text-lg'), { color: theme.BG_APP }]}
           weight={7}>{strApp.str_order}</AppText>
       </PressOpacity>
+
+      <Modal
+        animationType='slide'
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}>
+        <View style={tw('flex-1 items-center justify-center mt-5')}>
+          <View style={[
+            tw('m-5 p-9 items-center rounded-3xl'), {
+              backgroundColor: theme.BG_APP,
+              shadowColor: theme.COLOR_ICON,
+              shadowOffset: {
+                width: 0,
+                height: 2
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 4,
+              elevation: 5
+            }]}>
+            <FontAwesome 
+              name='check-circle'
+              size={scale(30)}
+              color={theme.COLOR_CHECK_ORDER} />
+
+            <AppText 
+              style={styleTextModal}
+              weight={7}>{strApp.str_order_success}</AppText>
+            
+            <AppText 
+              style={styleTextModal}
+            >{strApp.str_order_success_content.replace('{codeOrder}', dataOrder.DonHang ? dataOrder.DonHang[0].MaDonHang : '')}</AppText>
+
+            <Pressable
+              style={[
+                tw('rounded-3xl px-5 py-2.5'), {
+                  shadowColor: theme.COLOR_ICON,
+                  shadowOffset: {
+                    width: 0,
+                    height: 1
+                  },
+                  shadowOpacity: 0.20,
+                  shadowRadius: 1.41,
+                  elevation: 2,
+                  backgroundColor: theme.COLOR_BUTTON_OK,
+                }]}
+              onPress={_onPressModal}>
+              <AppText 
+                style={[
+                  tw('text-center'), {
+                    color: theme.BG_APP
+                  }]} weight={7}>{strApp.str_ok}</AppText>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </KeyboardAwareScrollView>
   )
 }

@@ -21,7 +21,7 @@ type Props = {
 
 const ItemProductCard: React.FC<Props> = ({ product, isBuy, like }) => {
   const tw = useTailwind()
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home', undefined>>()
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Root', undefined>>()
 
   const dispatch = useAppDispatch()
   const theme = useAppSelector((state) => state.theme.value)
@@ -49,7 +49,7 @@ const ItemProductCard: React.FC<Props> = ({ product, isBuy, like }) => {
         tw('rounded-md'),
         {
           backgroundColor: theme.BG_SEARCH_PRODUCT,
-          shadowColor: theme.COLOR_SHADOW,
+          shadowColor: theme.COLOR_ICON,
           shadowOffset: {
             width: 0,
             height: 3

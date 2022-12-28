@@ -12,7 +12,9 @@ const postUrl = {
   getOfficialAddressInformation: `${apiUrl}GetThongTinDiaChinh`,
   getStoreInformation: `${apiUrl}GetThongTinCuaHang`,
   deliveryCharges: `${apiUrl}TinhCuocVanChuyen`,
-  payment: `${apiUrl}ThanhToan`
+  payment: `${apiUrl}ThanhToan`,
+  getPosts: `${apiUrl}GetBaiViet`,
+  getOrder: `${apiUrl}GetThongTinDonHang`
 } as const
 type typePostUrl = typeof postUrl
 type keyPostUrl = keyof typePostUrl

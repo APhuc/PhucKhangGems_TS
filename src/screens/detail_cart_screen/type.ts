@@ -5,6 +5,13 @@ export type typeMenu = {
   code: string
   minimum_price_in_province?: number
   minimum_price_out_province?: number
+  city?: string
+}
+
+type typeVoucher = {
+  code: string
+  value: string
+  monney: number
 }
 
 export type FormValues = {
@@ -19,5 +26,7 @@ export type FormValues = {
   delivery: typeMenu
   receive: typeMenu
   transfer: typeMenu
+  voucher: string
+  dataVoucher: typeVoucher
   note: string
 }

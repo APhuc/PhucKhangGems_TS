@@ -77,12 +77,13 @@ export default function ListProductCart({ field, setValueProducts, deliveryCharg
       )
     }
 
-    const grossProduct = Object.values(listIdItemCart).reduce((t, n) => t + n)
+    let grossProduct = 0, cost = 0
 
-    let cost = 0
+    if (Object.values(listIdItemCart).length > 0) {
+      grossProduct = Object.values(listIdItemCart).reduce((t, n) => t + n)
+      value.map(product => cost += (product.GiaSauGiam * listIdItemCart[`${product.IDSanPham}`]))
+    }
 
-    value.map(product => cost += (product.GiaSauGiam * listIdItemCart[`${product.IDSanPham}`]))
-    
     return (
       <>
         {value.map((product, index) => {

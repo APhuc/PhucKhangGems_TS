@@ -11,9 +11,9 @@ import InputControl from '../input_control'
 import MenuChoose from '../menu_choose'
 
 export default function DetailDelivery(
-  { setValueDelivery, setValueReceive, setValueTransfer, control, errors, products } :
+  { setValueDelivery, setValueReceive, setValueTransfer, onBlurVoucher, control, errors, products } :
   { 
-    setValueDelivery: (data: typeMenu) => void, setValueReceive: (data: typeMenu) => void, setValueTransfer: (data: typeMenu) => void,
+    setValueDelivery: (data: typeMenu) => void, setValueReceive: (data: typeMenu) => void, setValueTransfer: (data: typeMenu) => void, onBlurVoucher: (value: string) => void,
     control: Control<FormValues, any>, errors: Partial<FieldErrorsImpl<FormValues>>,
     products: typeGetProductCart[]
   }
@@ -163,6 +163,18 @@ export default function DetailDelivery(
             setValueMenu={setValueTransfer}
             style={{ width: scale(330) }}
             isRequired={false} />}
+        
+        <InputControl
+          control={control}
+          name='voucher'
+          error={errors.voucher}
+          rules={notRequiredRules}
+          title={strApp.str_voucher}
+          placeholder={strApp.str_input_voucher}
+          maxLength={200}
+          isRequired={false}
+          isDelete={true}
+          onBlur={onBlurVoucher} />
 
         <InputControl
           control={control}
