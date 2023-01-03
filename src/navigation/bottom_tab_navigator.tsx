@@ -77,13 +77,13 @@ export default function BottomTabNavigator() {
           headerTitle: strApp.str_information
         }} />
       
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name='Account'
         component={AccountScreen}
         options={{ 
           tabBarLabel: strApp.str_account,
           headerShown: false
-        }} />
+        }} /> */}
     </BottomTab.Navigator>
   )
 }

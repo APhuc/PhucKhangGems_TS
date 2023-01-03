@@ -4,7 +4,7 @@
     "slug": "phuc-khang",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/phucKhangLogo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -22,10 +22,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/phucKhangLogo.png",
+        "backgroundColor": "#000"
       },
-      "package": "com.nguyendaiphuc.phuckhang"
+      "package": "com.nguyendaiphuc.phuckhang.demo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
